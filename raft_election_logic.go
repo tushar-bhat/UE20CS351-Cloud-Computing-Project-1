@@ -5,9 +5,12 @@ import (
 	"time"
 )
 
-/* startElectionTimer implements an election timer. It should be launched whenever
+/*
+	startElectionTimer implements an election timer. It should be launched whenever
+
 we want to start a timer towards becoming a candidate in a new election.
-This function runs as a go routine */
+This function runs as a go routine
+*/
 func (this *RaftNode) startElectionTimer() {
 	timeoutDuration := time.Duration(3000+rand.Intn(3000)) * time.Millisecond
 	this.mu.Lock()
@@ -99,10 +102,20 @@ func (this *RaftNode) startElection() {
 				// You probably need to have implemented becomeFollower before this.
 
 				//-------------------------------------------------------------------------------------------/
-				if reply.Term > {
+				if reply.Term > termWhenVoteRequested { //If the reply term is greater than term when the vote was requested
 					// TODO
-				} else if reply.Term ==  {
+					this.becomeFollower(reply.Term)
+					return
+				} else if reply.Term == termWhenVoteRequested { //If the reply term is equal to term when the vote was requested
 					// TODO
+					if reply.VoteGranted {
+						votesReceived += 1
+						if votesReceived > (len(this.peersIds)+1)/2 {
+							this.write_log("Won the election with %d votes", votesReceived)
+							this.startLeader()
+							return
+						}
+					}
 				}
 				//-------------------------------------------------------------------------------------------/
 
@@ -120,6 +133,13 @@ func (this *RaftNode) becomeFollower(term int) {
 
 	// IMPLEMENT becomeFollower; do you need to start a goroutine here, maybe?
 	//-------------------------------------------------------------------------------------------/
-	// TODO
+	//Initialising parameters
+	this.state = "Follower"
+	this.currentTerm = term
+	this.votedFor = -1
+	this.lastElectionTimerStartedTime = time.Now()
+
+	// Starting the election timer
+	go this.startElectionTimer()
 	//-------------------------------------------------------------------------------------------/
 }
