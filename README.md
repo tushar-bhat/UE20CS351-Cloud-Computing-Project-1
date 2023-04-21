@@ -2,6 +2,18 @@ CLOUD COMPUTING - UE20CS351
 
 # Project: Implementing Raft Logic in Go
 
+Team Members-
+
+TUSHAR BHAT - PES2UG20CS371
+
+SHUVAM BOSE - PES2UG20CS335
+
+SNEHALATHA G D -PES2UG20CS343
+
+TANYA BANSAL - PES2UG20CS368
+
+V BAVANIKA - PES2UG20CS374
+
 ## **In this project, you will:**
 
 1. Learn the basics of GoLang.
@@ -68,11 +80,8 @@ go test -v -race -run Test1 > verbose/1.log
 go test -v -race -run Test2 > verbose/2.log
 ```
 
-The above command executes a couple of scenarios for your code. Read through the logs generated in the verbose directory for **Test1** , and make sure to have all 5 files open in NodeLogs and watch them update in real time for **Test2** (like this:)
+The above command executes a couple of scenarios for your code. Read through the logs generated in the verbose directory for **Test1** , and make sure to have all 5 files open in NodeLogs and watch them update in real time for **Test2** 
 
-<p align="center">
-  <img src="images/test2.png" />
-</p>
 
 You could also instead tail -f the files with tmux, like you did for Experiment 4.
 
